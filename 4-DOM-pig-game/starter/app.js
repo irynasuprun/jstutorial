@@ -9,9 +9,9 @@ GAME RULES:
 
 */
 var scores, roundScore, activePlayer, gamePlaying;
-var prevSix, topScore; 
+var prevSix; 
 
-topScore = 100;
+
 init();
 
 
@@ -59,7 +59,11 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     //Update the UI
     document.querySelector('#score-' +  activePlayer).textContent = scores[activePlayer];
     //Check if player won the game
-    console.log(topScore)
+    var topScore = document.querySelector('.input-topscore').value;  
+    if (!topScore){
+        topScore=100;
+    }
+        
     if (scores[activePlayer] >= topScore){
 
      document.querySelector('#name-'+activePlayer).textContent = 'Winner!';
@@ -75,12 +79,6 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     }
     
 });
-
-document.querySelector('.input-topscore').addEventListener('input', function(){
-    topScore = document.getElementsByName('topScore').value;
-    init();
-})
-
 
 document.querySelector('.btn-new').addEventListener('click', init);
 
