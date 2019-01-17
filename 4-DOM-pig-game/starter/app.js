@@ -9,21 +9,34 @@ GAME RULES:
 
 */
 var scores, roundScore, activePlayer, gamePlaying;
+var prevSix, topScore; 
 
-
+topScore = 100;
 init();
 
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if (gamePlaying){
-   
     //random number
     var dice = Math.floor(Math.random()*6)+1;
     //display the result
     var diceDOM = document.querySelector('.dice');
     diceDOM.style.display='block';
     diceDOM.src = 'dice-'+dice+'.png';
-    
+    //if user rolled two 6 in the row make his total score 0
+    if (dice === 6 && prevSix ===true){
+        scores[activePlayer]=0;
+        document.querySelector('#score-' +  activePlayer).textContent = scores[activePlayer];
+        document.querySelector('#current-' + activePlayer).textContent = 0 ;
+        prevSix = false;
+        nextPlayer();
+    }
+    if (dice === 6 && prevSix ===false){
+        prevSix = true;
+    }
+    if (dice !== 6 && prevSix ===true){
+        prevSix = false;
+    }
     //Update the round score if the rollen button is not a 1
     if ( dice !== 1 ){
         //Add score
@@ -32,7 +45,7 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
     }else{
         //Next player
-        nextPlayer()
+        nextPlayer();
     }
     }
     
@@ -46,7 +59,9 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     //Update the UI
     document.querySelector('#score-' +  activePlayer).textContent = scores[activePlayer];
     //Check if player won the game
-    if (scores[activePlayer] >= 50){
+    console.log(topScore)
+    if (scores[activePlayer] >= topScore){
+
      document.querySelector('#name-'+activePlayer).textContent = 'Winner!';
      document.querySelector('.dice').style.display='none';
      document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
@@ -55,17 +70,24 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         
     }else{
     //next player
-     nextPlayer();        
+     nextPlayer();    
     }
     }
     
 });
+
+document.querySelector('.input-topscore').addEventListener('input', function(){
+    topScore = document.getElementsByName('topScore').value;
+    init();
+})
+
 
 document.querySelector('.btn-new').addEventListener('click', init);
 
 function nextPlayer(){
         activePlayer ===  0 ? activePlayer = 1 : activePlayer = 0;
         roundScore = 0;
+        prevSix = false;
         document.getElementById('current-0').textContent=0;
         document.getElementById('current-1').textContent=0;
         
@@ -81,7 +103,9 @@ function init(){
     roundScore =0;
     activePlayer =0;
     gamePlaying=true;
-    
+    prevSix = false;
+
+
     document.querySelector('.dice').style.display='none';
     
     document.getElementById('score-0').textContent = '0';
@@ -98,6 +122,8 @@ function init(){
     document.querySelector('.player-1-panel').classList.remove('active');
     
     document.querySelector('.player-0-panel').classList.add('active');
+    // = document.querySelector('input[name="topScore"]').itemValue
+
     
     
     

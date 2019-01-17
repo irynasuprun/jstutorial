@@ -119,6 +119,8 @@ button {
     transition: background-color 0.3s, color 0.3s;
 }
 
+
+
 button:hover { font-weight: 600; }
 button:hover i { margin-right: 20px; }
 
@@ -152,3 +154,13 @@ i {
 
 .winner { background-color: #f7f7f7; }
 .winner .player-name { font-weight: 300; color: #EB4D4D; }
+
+.input-topscore {
+    top: 90px;
+    position: absolute;
+    left: 40%;
+    width: 200px;
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+}
