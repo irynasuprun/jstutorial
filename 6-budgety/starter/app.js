@@ -200,7 +200,20 @@ var UIController = (function() {
         getDomSrtings: function(){
             return DOMStrings; 
         },
-       
+
+        formatNumber: function(num, type){
+            var numSplit, int, dec;
+            num = Math.abs(num);
+            num = num.toFixed(2);
+            numSplit = num.split('.');
+            int = numSplit[0];
+            dec = numSplit[1];
+            if(int.length > 3){
+                int = int.substr(0, 1) + ',' + int.substr(1, 3); 
+            }
+
+        },
+        
         addListItem: function(obj, type) {
             var html, newHtml, element;
             // Create HTML string with placeholder text
