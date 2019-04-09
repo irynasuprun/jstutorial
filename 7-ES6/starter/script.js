@@ -103,8 +103,6 @@ var box5 = {
 }
 
 box5.clickMe();
-*/
-
 //es6
 
 const box6 = {
@@ -117,11 +115,50 @@ const box6 = {
 
 box6.clickMe();
 
+*/
+
+//es6
+/*
+const box6 = {
+    color: 'green',
+    position: 1,
+    clickMe: () => {
+        document.querySelector('.green').addEventListener('click', ()=>{var str = 'this is box number '+ this.position + ' and it is '+ this.color; alert(str);});
+    }
+}
+
+box6.clickMe();
+
+*/
+
+function Person(name){
+    this.name = name;
+}
+
+//ES5
+Person.prototype.myFriends5 = 
+function(friends){
+    
+    var arr = friends.map(function(el){
+        return this.name + '  is friends with ' + el;
+    }.bind(this));
+    console.log(arr);
+}
+
+var friends = ['bob', 'elsa', 'irna'];
+new Person('John').myFriends5(friends);
+       
+//ES6
+
+Person.prototype.myFriends6 = 
+function(friends){
+    
+    var arr = friends.map(el => ` ${this.name} is friends with ${el}`);
+    console.log(arr);
+}
 
 
-
-
-
+new Person('Mike').myFriends6(friends);
 
 
 
